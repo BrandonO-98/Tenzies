@@ -39,6 +39,7 @@ function App() {
           : {...die, value: Math.ceil(Math.random() * 6)};
       })
     );
+    setTimeout(roll, 1000);
   }
 
   function newGame() {
@@ -71,7 +72,7 @@ function App() {
           className={`btn ${tenzies ? `newGame` : `roll`}`}
           onClick={tenzies ? newGame : roll}
         >
-          {tenzies ? `New Game` : `Roll`}
+          {tenzies ? `New Game` : `Start`}
         </button>
       </main>
     </div>
