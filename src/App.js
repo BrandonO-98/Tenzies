@@ -39,6 +39,7 @@ function App() {
           : { ...die, value: Math.ceil(Math.random() * 6) };
       })
     );
+    setTimeout(roll, 100);
   }
 
   function newGame() {
@@ -63,15 +64,15 @@ function App() {
         {tenzies && <Confetti />}
         <h1 className="title">Tenzies</h1>
         <p className="rules">
-          Roll until all dice are the same. Click each die to freeze its value
-          between rolls.
+          Click each die to freeze its value between rolls. Freeze all dice with
+          the same value to win.
         </p>
         <div className="dice-container"> {dieElements}</div>
         <button
           className={`btn ${tenzies ? `newGame` : `roll`}`}
           onClick={tenzies ? newGame : roll}
         >
-          {tenzies ? `New Game` : `Roll`}
+          {tenzies ? `New Game` : `Start`}
         </button>
       </main>
     </div>
