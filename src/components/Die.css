@@ -1,0 +1,20 @@
+.die-container {
+  display: grid;
+  border-radius: 5px;
+  height: 45px;
+  width: 45px;
+  justify-content: center;
+  align-content: center;
+  -webkit-box-shadow: 4px 11px 13px -4px rgba(0, 0, 0, 0.79);
+  box-shadow: 4px 11px 13px -4px rgba(0, 0, 0, 0.79);
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-weight: bolder;
+}
+
+.die-container-dynamic {
+  background-color: white;
+}
+.die-container-static {
+  background-color: rgb(9, 255, 0);
+}
