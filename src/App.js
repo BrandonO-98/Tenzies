@@ -3,6 +3,7 @@ import "./App.css";
 import Die from "./components/Die.js";
 // import dieData from "./dieData.js";
 import { nanoid } from "nanoid";
+import Confetti from "react-confetti";
 
 function App() {
   const [tenzies, setTenzies] = useState(false);
@@ -11,22 +12,12 @@ function App() {
   useEffect(() => {
     const allStatic = dice.every((die) => die.isStatic);
     const sameValue = dice.every((die) => die.value === dice[0].value);
-
     if (allStatic && sameValue) {
-      console.log("Winner");
       setTenzies(true);
+    } else {
+      setTenzies(false);
     }
   }, [dice]);
-
-  function roll() {
-    setDice((oldDice) =>
-      oldDice.map((die) => {
-        return die.isStatic
-          ? die
-          : { ...die, value: Math.ceil(Math.random() * 6) };
-      })
-    );
-  }
 
   function roledDice() {
     const newRoll = [];
@@ -40,6 +31,21 @@ function App() {
     return newRoll;
   }
 
+  function roll() {
+    setDice((oldDice) =>
+      oldDice.map((die) => {
+        return die.isStatic
+          ? die
+          : { ...die, value: Math.ceil(Math.random() * 6) };
+      })
+    );
+  }
+
+  function newGame() {
+    setTenzies(false);
+    setDice(roledDice);
+  }
+
   function hold(id) {
     setDice((oldDice) =>
       oldDice.map((die) => {
@@ -47,19 +53,26 @@ function App() {
       })
     );
   }
+
   const dieElements = dice.map((die) => (
     <Die key={die.id} obj={die} holdFunc={() => hold(die.id)} />
   ));
   return (
     <div className="App">
       <main>
+        {tenzies && <Confetti />}
         <h1 className="title">Tenzies</h1>
         <p className="rules">
           Roll until all dice are the same. Click each die to freeze its value
           between rolls.
         </p>
         <div className="dice-container"> {dieElements}</div>
-        <button onClick={roll}>Roll</button>
+        <button
+          className={`btn ${tenzies ? `newGame` : `roll`}`}
+          onClick={tenzies ? newGame : roll}
+        >
+          {tenzies ? `New Game` : `Roll`}
+        </button>
       </main>
     </div>
   );
