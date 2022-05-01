@@ -8,6 +8,7 @@ import Confetti from "react-confetti";
 function App() {
   const [tenzies, setTenzies] = useState(false);
   const [dice, setDice] = useState(roledDice());
+  const [start, setStart] = useState(false);
 
   useEffect(() => {
     const allStatic = dice.every((die) => die.isStatic);
@@ -31,15 +32,18 @@ function App() {
     return newRoll;
   }
 
-  function roll() {
-    setDice((oldDice) =>
-      oldDice.map((die) => {
-        return die.isStatic
-          ? die
-          : {...die, value: Math.ceil(Math.random() * 6)};
-      })
-    );
-    setTimeout(roll, 1000);
+  function startRoll() {
+    if (start === false) {
+      setStart(true);
+      setDice((oldDice) =>
+        oldDice.map((die) => {
+          return die.isStatic
+            ? die
+            : {...die, value: Math.ceil(Math.random() * 6)};
+        })
+      );
+      setTimeout(startRoll, 1000);
+    }
   }
 
   function newGame() {
@@ -70,7 +74,7 @@ function App() {
         <div className='dice-container'> {dieElements}</div>
         <button
           className={`btn ${tenzies ? `newGame` : `roll`}`}
-          onClick={tenzies ? newGame : roll}
+          onClick={tenzies ? newGame : startRoll}
         >
           {tenzies ? `New Game` : `Start`}
         </button>
