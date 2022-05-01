@@ -39,7 +39,7 @@ function App() {
           : { ...die, value: Math.ceil(Math.random() * 6) };
       })
     );
-    setTimeout(roll, 100);
+    setTimeout(roll, 1000);
   }
 
   function newGame() {
